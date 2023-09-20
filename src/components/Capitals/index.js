@@ -32,31 +32,27 @@ const countryAndCapitalsList = [
 
 // Write your code here
 class Capitals extends Component {
-  state = {countryId: countryAndCapitalsList[0].id}
+  state = {countryId: countryAndCapitalsList[0]}
 
   selectCountry = event => {
-    this.setState({countryId: event.target.value})
-  }
+    console.log(event.target.value)
 
-  getCountryFunc = () => {
-    const {countryId} = this.state
-    const countryObj = countryAndCapitalsList.find(
-      each => each.id === countryId,
+    const getObjectOfCountry = countryAndCapitalsList.find(
+      each => each.id === event.target.value,
     )
-    console.log(countryObj)
-    return countryObj
+    console.log(getObjectOfCountry)
+    this.setState({countryId: getObjectOfCountry})
   }
 
   render() {
     const {countryId} = this.state
-    const getCountry = this.getCountryFunc()
 
     return (
       <div className="cg-con">
         <div className="dg-con">
           <h1 className="">Countries and capitals</h1>
           <div className="select-con">
-            <select value={countryId} onChange={this.selectCountry}>
+            <select value={countryId.id} onChange={this.selectCountry}>
               {countryAndCapitalsList.map(each => (
                 <option value={each.id} key={each.id}>
                   {each.capitalDisplayText}
@@ -66,7 +62,7 @@ class Capitals extends Component {
             <p>is capital of which country?</p>
           </div>
 
-          <p>{getCountry.country}</p>
+          <p>{countryId.country}</p>
         </div>
       </div>
     )
